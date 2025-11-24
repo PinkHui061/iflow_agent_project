@@ -8,14 +8,12 @@ const port = process.env.PORT || 3000;
 
 // 中间件
 app.use(express.json());
-app.use(express.static('public'));
-
-// ✅ 安全修复：只使用环境变量，移除硬编码的 API Key
-console.log('🔐 API Key 状态:', process.env.MOONSHOT_API_KEY ? '已设置' : '未设置');
+app.use(express.static(path.join(__dirname, 'public')));
 
 // 初始化 OpenAI 客户端
 const client = new OpenAI({
-    apiKey: process.env.MOONSHOT_API_KEY || 'sk-pqBAxfdg2OMpkiUyJlcKbyytaAptLxE7h0Hkp3VbrMjHDQSq',
+    apiKey: 'sk-pqBAxfdg2OMpkiUyJlcKbyytaAptLxE7h0Hkp3VbrMjHDQSq',
+    baseURL: "https://api.moonshot.cn/v1",
 });
 
 // ✅ 修复：使用默认提示词，避免文件依赖问题
@@ -113,32 +111,6 @@ app.post('/api/chat', async (req, res) => {
         
         if (relevantModules.length > 0) {
             finalSystemPrompt += "\n\n【激活专业模块】" + relevantModules.join("\n\n");
-        }
-
-        // ✅ 修复：如果没有API Key，返回模拟响应
-        if (!process.env.MOONSHOT_API_KEY) {
-            console.log('⚠️ 使用模拟响应（无API Key）');
-            await new Promise(resolve => setTimeout(resolve, 800));
-            
-            const simulationResponse = `🧠 **心理学助手回复**（模拟模式）
-
-针对您的问题："${userMessage}"
-
-我从心理学角度为您分析：
-${relevantModules.length > 0 ? `\n**已激活专业模块**：${relevantModules.length}个\n` : ''}
-
-💡 **专业建议**：
-1. 这个问题涉及认知和情感的多维度因素
-2. 建议从${relevantModules.length > 0 ? '相关专业角度' : '综合心理学视角'}深入探讨
-3. 如需具体干预方案，建议结合实际情况进一步咨询
-
-🔍 *提示：配置有效的API密钥后可获得真实的AI回复*`;
-
-            return res.json({ 
-                reply: simulationResponse,
-                type: 'simulation',
-                modules: relevantModules.length
-            });
         }
 
         // 调用真实的Kimi API

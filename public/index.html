@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -15,6 +15,95 @@
             <button id="send-button">发送</button>
         </div>
     </div>
+    <script src="app.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理学智能助手</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 头部 -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🧠</div>
+                    <div class="logo-text">
+                        <h1>心理学智能助手</h1>
+                        <p>基于动态角色提示词的心理学咨询系统</p>
+                    </div>
+                </div>
+                <div class="status-indicator" id="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>连接中...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主聊天区域 -->
+        <main class="chat-main">
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <!-- 欢迎消息 -->
+                    <div class="message assistant-message welcome-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <div class="message-sender">心理学助手</div>
+                            <div class="message-text">
+                                <p>👋 您好！我是心理学智能助手，我可以为您提供：</p>
+                                <ul>
+                                    <li>🎯 认知行为疗法（CBT）指导</li>
+                                    <li>📊 心理学研究方法咨询</li>
+                                    <li>💭 情绪管理和心理调适建议</li>
+                                    <li>📝 学术写作和研究设计指导</li>
+                                </ul>
+                                <p>请告诉我您需要什么帮助？</p>
+                            </div>
+                            <div class="message-time" id="welcome-time"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 输入区域 -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <div class="typing-indicator" id="typing-indicator" style="display: none;">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span>心理学助手正在思考...</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="user-input" placeholder="请输入您的心理学问题或咨询需求..." autocomplete="off">
+                        <button id="send-button" class="send-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="quick-actions">
+                        <span class="quick-label">快速提问：</span>
+                        <button class="quick-btn" data-query="请用认知行为疗法分析焦虑情绪">焦虑分析</button>
+                        <button class="quick-btn" data-query="如何设计一个心理学实验">实验设计</button>
+                        <button class="quick-btn" data-query="解释情绪调节的策略">情绪调节</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
