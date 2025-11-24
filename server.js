@@ -113,17 +113,31 @@ app.post('/api/chat', async (req, res) => {
         res.status(500).json({ error: `Failed to get response from the AI: ${errorMessage}` });
     }
 });
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 // 启动服务器
-async function startServer() {
-    await loadSystemPrompt(); // 等待提示词加载完毕后再启动服务器
-    app.listen(port, () => {
-        console.log(`Psychology Agent server is running on http://localhost:${port}`);
-    });
+// async function startServer() {
+//     await loadSystemPrompt(); // 等待提示词加载完毕后再启动服务器
+//     app.listen(port, () => {
+//         console.log(`Psychology Agent server is running on http://localhost:${port}`);
+//     });
+// }
+
+const startServer = async () => {
+    await loadSystemPrompt();
+    
+    if (process.env.NODE_ENV !== 'production') {
+        app.listen(port, () => {
+            console.log(`🚀 心理学助手服务运行在 http://localhost:${port}`);
+        });
+    }
+};
+
+// 启动服务器（开发环境）
+if (require.main === module) {
+    startServer();
 }
+
+module.exports = app;
 
 // 执行启动函数
 startServer();
