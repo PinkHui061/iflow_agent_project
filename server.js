@@ -138,6 +138,3 @@ if (require.main === module) {
 }
 
 module.exports = app;
-
-// 执行启动函数
-startServer();
