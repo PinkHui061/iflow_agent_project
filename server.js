@@ -13,7 +13,7 @@ app.use(express.static('public'));
 
 // 初始化 OpenAI 客户端 (指向 Kimi API)
 const client = new OpenAI({
-    apiKey: 'sk-pqBAxfdg2OMpkiUyJlcKbyytaAptLxE7h0Hkp3VbrMjHDQSq',
+    apiKey: 'sk-pqBAxfdg2OMpkiUyJlcKbyytaAptLxE7h0Hkp3VbrMjHDQSq' || process.env.MOONSHOT_API_KEY,
     baseURL: "https://api.moonshot.cn/v1",
 });
 
