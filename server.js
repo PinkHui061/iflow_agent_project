@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const { OpenAI } = require("openai");
 const fs = require('fs').promises; // 使用 promise 版本的 fs 模块，便于异步操作
