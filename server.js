@@ -62,6 +62,18 @@ function getRelevantModules(userMessage) {
     return modules;
 }
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/api/health', (req, res) => {
+    res.json({ 
+        status: '服务运行正常', 
+        timestamp: new Date().toISOString(),
+        promptLoaded: !!PSYCHOLOGIST_SYSTEM_PROMPT
+    });
+});
+
 // API 端点，用于处理聊天请求
 app.post('/api/chat', async (req, res) => {
     // 检查提示词是否已加载
@@ -100,6 +112,9 @@ app.post('/api/chat', async (req, res) => {
         const errorMessage = error.response ? error.response.data.error.message : error.message;
         res.status(500).json({ error: `Failed to get response from the AI: ${errorMessage}` });
     }
+});
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // 启动服务器
